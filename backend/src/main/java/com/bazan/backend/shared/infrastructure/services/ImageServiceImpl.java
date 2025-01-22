@@ -1,6 +1,6 @@
-package com.bazan.backend.realstate.infrastructure.services;
+package com.bazan.backend.shared.infrastructure.services;
 
-import com.bazan.backend.realstate.application.abstractions.ImageService;
+import com.bazan.backend.shared.aplication.abstractions.ImageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

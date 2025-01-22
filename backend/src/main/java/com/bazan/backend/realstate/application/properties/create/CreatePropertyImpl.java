@@ -1,6 +1,6 @@
 package com.bazan.backend.realstate.application.properties.create;
 
-import com.bazan.backend.realstate.application.abstractions.ImageService;
+import com.bazan.backend.shared.aplication.abstractions.ImageService;
 import com.bazan.backend.realstate.domain.properties.Category;
 import com.bazan.backend.realstate.domain.properties.Property;
 import com.bazan.backend.realstate.domain.sellers.Seller;

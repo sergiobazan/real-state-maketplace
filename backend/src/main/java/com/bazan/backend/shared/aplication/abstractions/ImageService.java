@@ -1,4 +1,4 @@
-package com.bazan.backend.realstate.application.abstractions;
+package com.bazan.backend.shared.aplication.abstractions;
 
 import org.springframework.web.multipart.MultipartFile;
 
