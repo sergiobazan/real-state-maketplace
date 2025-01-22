@@ -1,5 +1,7 @@
 package com.bazan.backend.realstate.application.properties.create;
 
+import com.bazan.backend.realstate.domain.properties.PropertyErrors;
+import com.bazan.backend.realstate.domain.sellers.SellerErrors;
 import com.bazan.backend.shared.aplication.abstractions.ImageService;
 import com.bazan.backend.realstate.domain.properties.Category;
 import com.bazan.backend.realstate.domain.properties.Property;
@@ -7,10 +9,13 @@ import com.bazan.backend.realstate.domain.sellers.Seller;
 import com.bazan.backend.realstate.infrastructure.repositories.CategoryRepository;
 import com.bazan.backend.realstate.infrastructure.repositories.PropertyRepository;
 import com.bazan.backend.realstate.infrastructure.repositories.SellerRepository;
+import com.bazan.backend.shared.domain.abstractions.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -22,12 +27,18 @@ public class CreatePropertyImpl implements CreateProperty {
 
     @Transactional
     @Override
-    public CreatePropertyResponse create(CreatePropertyRequest request,  MultipartFile file) throws Exception {
-        Category category = categoryRepository.findById(request.categoryId())
-                .orElseThrow(() -> new Exception("Category with given id not found"));
+    public Result<CreatePropertyResponse> create(CreatePropertyRequest request, MultipartFile file) {
+        Optional<Category> category = categoryRepository.findById(request.categoryId());
 
-        Seller seller = sellerRepository.findById(request.sellerId())
-                .orElseThrow(() -> new Exception("Seller with given id not found"));
+        if (category.isEmpty()) {
+            return Result.failure(PropertyErrors.categoryNotfound);
+        }
+
+        Optional<Seller> seller = sellerRepository.findById(request.sellerId());
+
+        if (seller.isEmpty()) {
+            return Result.failure(SellerErrors.notFound);
+        }
 
         Property property = Property.create(
                 request.title(),
@@ -38,13 +49,13 @@ public class CreatePropertyImpl implements CreateProperty {
                 imageService.uploadImage(file),
                 request.type(),
                 request.status(),
-                category,
-                seller
+                category.get(),
+                seller.get()
         );
 
         var propertySaved = propertyRepository.save(property);
 
-        return new CreatePropertyResponse(
+        var response = new CreatePropertyResponse(
                 propertySaved.getId(),
                 propertySaved.getTitle(),
                 propertySaved.getDescription(),
@@ -65,5 +76,7 @@ public class CreatePropertyImpl implements CreateProperty {
                         propertySaved.getSeller().getEmail()
                 )
         );
+
+        return Result.success(response);
     }
 }
