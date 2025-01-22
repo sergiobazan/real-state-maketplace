@@ -1,5 +1,6 @@
 package com.bazan.backend.realstate.application.properties.create;
 
+import com.bazan.backend.realstate.application.properties.PropertyMapper;
 import com.bazan.backend.realstate.domain.properties.PropertyErrors;
 import com.bazan.backend.realstate.domain.sellers.SellerErrors;
 import com.bazan.backend.shared.aplication.abstractions.ImageService;
@@ -55,27 +56,7 @@ public class CreatePropertyImpl implements CreateProperty {
 
         var propertySaved = propertyRepository.save(property);
 
-        var response = new CreatePropertyResponse(
-                propertySaved.getId(),
-                propertySaved.getTitle(),
-                propertySaved.getDescription(),
-                propertySaved.getPrice(),
-                propertySaved.getAddress(),
-                propertySaved.getMeasures(),
-                propertySaved.getImageUrl(),
-                propertySaved.getType(),
-                propertySaved.getStatus(),
-                new CategoryResponse(
-                        propertySaved.getCategory().getId(),
-                        propertySaved.getCategory().getName(),
-                        propertySaved.getCategory().getDescription()
-                ),
-                new SellerResponse(
-                        propertySaved.getSeller().getId(),
-                        propertySaved.getSeller().getName(),
-                        propertySaved.getSeller().getEmail()
-                )
-        );
+        var response = PropertyMapper.fromEntity(propertySaved);
 
         return Result.success(response);
     }

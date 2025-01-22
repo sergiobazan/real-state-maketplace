@@ -21,6 +21,3 @@ public record CreatePropertyResponse(
         SellerResponse seller
 ) {
 }
-
-record CategoryResponse(UUID id, String name, String description) {}
-record SellerResponse(UUID id, String name, String email) {}
