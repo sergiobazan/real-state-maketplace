@@ -1,6 +1,5 @@
 package com.bazan.backend.realstate.application.properties.create;
 
-import com.bazan.backend.realstate.domain.properties.Address;
 import com.bazan.backend.realstate.domain.properties.PropertyStatus;
 import com.bazan.backend.realstate.domain.properties.PropertyType;
 
@@ -11,7 +10,9 @@ public record CreatePropertyRequest(
         String title,
         String description,
         BigDecimal price,
-        Address address,
+        String city,
+        String street,
+        String zipCode,
         String measures,
         PropertyType type,
         PropertyStatus status,

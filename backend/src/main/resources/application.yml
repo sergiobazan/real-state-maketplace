@@ -16,3 +16,9 @@ spring:
 server:
   servlet:
     context-path: /api/v1
+
+aws:
+  s3:
+    accessKey: ${ACCESS_KEY}
+    secretKey: ${SECRET_KEY}
+    bucketName: ${BUCKET_NAME}

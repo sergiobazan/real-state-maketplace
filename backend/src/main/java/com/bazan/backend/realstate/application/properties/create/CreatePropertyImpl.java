@@ -1,6 +1,7 @@
 package com.bazan.backend.realstate.application.properties.create;
 
 import com.bazan.backend.realstate.application.properties.PropertyMapper;
+import com.bazan.backend.realstate.domain.properties.Address;
 import com.bazan.backend.realstate.domain.properties.PropertyErrors;
 import com.bazan.backend.realstate.domain.sellers.SellerErrors;
 import com.bazan.backend.shared.aplication.abstractions.ImageService;
@@ -41,13 +42,22 @@ public class CreatePropertyImpl implements CreateProperty {
             return Result.failure(SellerErrors.notFound);
         }
 
+        var imageResult = imageService.uploadImage(file);
+
+        if (imageResult.isFailure())
+            return Result.failure(imageResult.error());
+
         Property property = Property.create(
                 request.title(),
                 request.description(),
                 request.price(),
-                request.address(),
+                new Address(
+                        request.city(),
+                        request.street(),
+                        request.zipCode()
+                ),
                 request.measures(),
-                imageService.uploadImage(file),
+                imageResult.getValue(),
                 request.type(),
                 request.status(),
                 category.get(),

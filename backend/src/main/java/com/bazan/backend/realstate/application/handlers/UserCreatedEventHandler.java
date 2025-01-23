@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -19,7 +18,6 @@ public class UserCreatedEventHandler {
     private final BuyerRepository buyerRepository;
 
     @ApplicationModuleListener
-    @Transactional
     void onUserCreated(UserCreatedEvent event) {
         log.info("Starting user created event {}", event);
 

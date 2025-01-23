@@ -51,6 +51,12 @@
 			<groupId>org.springframework.modulith</groupId>
 			<artifactId>spring-modulith-starter-jpa</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>2.29.29</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
