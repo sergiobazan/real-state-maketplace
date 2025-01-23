@@ -1,0 +1,13 @@
+<main>
+  <h1>Find your new Property here!</h1>
+  <div class="flex justify-center">
+    <div *ngFor="let property of properties()" class="max-w-80 rounded-md shadow-md overflow-hidden">
+      <img [src]="property.imageUrl" [alt]="property.title">
+      <div class="p-4">
+        <h2>{{ property.title }}</h2>
+        <p>{{ property.description }}</p>
+      </div>
+      
+    </div>
+  </div>
+</main>
