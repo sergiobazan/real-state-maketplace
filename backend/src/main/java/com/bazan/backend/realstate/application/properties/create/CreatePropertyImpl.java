@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -69,5 +70,10 @@ public class CreatePropertyImpl implements CreateProperty {
         var response = PropertyMapper.fromEntity(propertySaved);
 
         return Result.success(response);
+    }
+
+    @Override
+    public Result<List<CreatePropertyResponse>> findAll() {
+        return Result.success(propertyRepository.findAll().stream().map(PropertyMapper::fromEntity).toList());
     }
 }

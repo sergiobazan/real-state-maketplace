@@ -25,4 +25,10 @@ public class PropertyController {
 
         return ResponseEntity.badRequest().body(result.error());
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllProperties() {
+        var result = createProperty.findAll();
+        return ResponseEntity.ok(result.getValue());
+    }
 }
