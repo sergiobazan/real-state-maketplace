@@ -8,4 +8,5 @@ import java.util.List;
 public interface CreateProperty {
     Result<CreatePropertyResponse> create(CreatePropertyRequest request, MultipartFile file);
     Result<List<CreatePropertyResponse>> findAll();
+    Result<List<CategoryResponse>> findAllCategories();
 }

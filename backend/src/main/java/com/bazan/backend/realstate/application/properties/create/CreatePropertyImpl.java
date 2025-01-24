@@ -1,5 +1,6 @@
 package com.bazan.backend.realstate.application.properties.create;
 
+import com.bazan.backend.realstate.application.properties.CategoryMapper;
 import com.bazan.backend.realstate.application.properties.PropertyMapper;
 import com.bazan.backend.realstate.domain.properties.Address;
 import com.bazan.backend.realstate.domain.properties.PropertyErrors;
@@ -75,5 +76,10 @@ public class CreatePropertyImpl implements CreateProperty {
     @Override
     public Result<List<CreatePropertyResponse>> findAll() {
         return Result.success(propertyRepository.findAll().stream().map(PropertyMapper::fromEntity).toList());
+    }
+
+    @Override
+    public Result<List<CategoryResponse>> findAllCategories() {
+        return Result.success(categoryRepository.findAll().stream().map(CategoryMapper::fromEntity).toList());
     }
 }

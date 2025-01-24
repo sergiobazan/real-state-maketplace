@@ -31,4 +31,10 @@ public class PropertyController {
         var result = createProperty.findAll();
         return ResponseEntity.ok(result.getValue());
     }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getAllCategories() {
+        var result = createProperty.findAllCategories();
+        return ResponseEntity.ok(result.getValue());
+    }
 }
