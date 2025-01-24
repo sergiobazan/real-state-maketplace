@@ -1,0 +1,32 @@
+<main class="p-6">
+  <h1 class="text-xl font-semibold text-zinc-800 my-4 text-center">Find your new Property here!</h1>
+  <div class="flex justify-center gap-4 flex-wrap">
+    <div *ngFor="let property of properties()" class="cursor-pointer border border-gray-300 max-w-[380px] rounded-md shadow-md overflow-hidden">
+      <img [src]="property.imageUrl" [alt]="property.title" class="w-full h-[250px] object-cover">
+      <div class="p-4 bg-neutral-50">
+        <h2 class="font-semibold text-zinc-600 text-lg">{{ property.title }}</h2>
+        
+        <div class="flex gap-1 my-2">
+          <span class="font-bold text-sm text-blue-800 bg-blue-200 rounded-md px-2">{{ property.category.name }}</span>
+          <span class="font-bold text-sm text-orange-800 bg-orange-200 rounded-md px-2 capitalize">
+            {{ property.type.toLowerCase() }}
+          </span>
+          <span class="font-bold text-sm text-green-800 bg-green-200 rounded-md px-2 capitalize">
+            {{ property.status.toLowerCase() }}
+          </span>
+        </div>
+
+        <p class="text-md my-2">{{ property.description }}</p>
+        
+        <div class="my-2">
+          <h3 class="font-semibold text-zinc-600">Location</h3>
+          <p class="text-md"><i class="fas fa-map-marker-alt text-red-500"></i> {{ property.address.street }}, {{ property.address.city }} ({{ property.address.zipCode }})</p>
+        </div>
+        
+        <p class="text-md my-2"><span class="font-semibold text-zinc-600">Seller:</span> {{ property.seller.name }}</p>
+        
+        <p class="font-semibold text-zinc-600">Listing price: {{ property.price | currency }}</p>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,59 @@
+<main class="p-6">
+  <div class="flex justify-center max-w-[480px] mx-auto">
+    <form (submit)="onSubmit()" class="w-full p-3 rounded shadow border border-white">
+      <h1 class="text-xl font-semibold text-zinc-800 my-1 text-center">List your Property here!</h1>
+      <div class="flex flex-col gap-1 mb-4">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" [(ngModel)]="propertyRequest().title" class="py-1 px-3 border border-gray-300 rounded-md">
+      </div>
+      <div class="flex flex-col gap-1 mb-4">
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" [(ngModel)]="propertyRequest().description" class="py-1 px-3 border border-gray-300 rounded-md">
+      </div>
+      <div class="flex flex-col gap-1 mb-4">
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" [(ngModel)]="propertyRequest().price" class="py-1 px-3 border border-gray-300 rounded-md">
+      </div>
+      <div class="flex flex-col gap-1 mb-4">
+        <label for="measures">Measures</label>
+        <input type="text" id="measures" name="measures" [(ngModel)]="propertyRequest().measures" class="py-1 px-3 border border-gray-300 rounded-md">
+      </div>
+      <div class="w-full mb-4">
+        <span>Address</span>
+        <div class="flex gap-2 w-full">
+          <input type="text" id="city" name="city" [(ngModel)]="propertyRequest().address.city" placeholder="City" class="w-full py-1 px-3 border border-gray-300 rounded-md">
+          <input type="text" id="street" name="street" [(ngModel)]="propertyRequest().address.street" placeholder="Street" class="w-full py-1 px-3 border border-gray-300 rounded-md">
+          <input type="text" id="zipCode" name="zipCode" [(ngModel)]="propertyRequest().address.zipCode" placeholder="Zip Code" class="w-full py-1 px-3 border border-gray-300 rounded-md">
+        </div>
+      </div>
+      <div class="flex justify-between w-full mb-4">
+        <div class="flex flex-col gap-1">
+          <label for="type">Type</label>
+          <select name="type" id="type" [(ngModel)]="propertyRequest().type" class="border border-gray-300 rounded-md w-full py-1 px-3">
+            <option value="DEPARTMENT">Department</option>
+            <option value="HOUSE">House</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="status">Status</label>
+          <select name="status" id="status" [(ngModel)]="propertyRequest().status" class="border border-gray-300 rounded-md w-full py-1 px-3">
+            <option value="AVAILABLE">Available</option>
+            <option value="SOLD">Sold</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="category">Category</label>
+        <select name="category" id="category" [(ngModel)]="propertyRequest().categoryId" class="border border-gray-300 rounded-md w-full py-1 px-3">
+          <option *ngFor="let category of categories()" [value]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1 mb-4">
+        <label for="image">Image</label>
+        <input type="file" id="image" name="image" (change)="handleFile($event)" >
+      </div>
+
+      <button type="submit" class="py-1 px-4 rounded text-white bg-blue-500 font-semibold">List Property</button>
+    </form>
+  </div>
+</main>
