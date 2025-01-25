@@ -10,6 +10,7 @@ import com.bazan.backend.users.infrastructure.repositories.RoleRepository;
 import com.bazan.backend.users.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class CreateUserImpl implements CreateUser {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ApplicationEventPublisher publisher;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @Override
     @Transactional
@@ -33,9 +35,9 @@ public class CreateUserImpl implements CreateUser {
             return Result.failure(UserErrors.roleNotFound);
 
         User user = User.create(
-                request.username(),
+                request.name(),
                 request.email(),
-                request.password(),
+                encoder.encode(request.password()),
                 List.of(
                         defaultRole,
                         role.get()
@@ -48,7 +50,7 @@ public class CreateUserImpl implements CreateUser {
 
         publisher.publishEvent(new UserCreatedEvent(
                 userCreated.getId(),
-                userCreated.getUsername(),
+                userCreated.getName(),
                 userCreated.getEmail(),
                 role.get().getName()
         ));
