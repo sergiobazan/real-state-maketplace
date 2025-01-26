@@ -7,14 +7,18 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BuyerComponent } from './pages/buyer/buyer.component';
 import { SellerComponent } from './pages/seller/seller.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BuyerComponent,
-    SellerComponent
+    SellerComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
