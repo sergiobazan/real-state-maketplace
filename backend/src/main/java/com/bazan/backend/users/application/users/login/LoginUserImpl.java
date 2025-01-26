@@ -16,7 +16,7 @@ public class LoginUserImpl implements LoginUser {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @Override
-    public Result<String> login(LoginRequest request) {
+    public Result<LoginResponse> login(LoginRequest request) {
         var user = userRepository.findByEmail(request.email());
 
         if (user == null) {
@@ -29,6 +29,6 @@ public class LoginUserImpl implements LoginUser {
 
         String token = jwtService.generateToken(user);
 
-        return Result.success(token);
+        return Result.success(new LoginResponse(token));
     }
 }
