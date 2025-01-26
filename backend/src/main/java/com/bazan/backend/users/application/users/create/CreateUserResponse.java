@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record CreateUserResponse(
         UUID id,
-        String username,
+        String name,
         String email
 ) {
 }
