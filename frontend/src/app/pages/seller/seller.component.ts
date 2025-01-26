@@ -1,12 +1,16 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { SellerService } from './seller.service';
 import { Category, PropertyRequest, PropertyStatus, PropertyType } from '../home/models/Property';
+import { User } from '../home/models/User';
 
 @Component({
   selector: 'app-seller',
   templateUrl: './seller.component.html'
 })
 export class SellerComponent implements OnInit {
+  @Input()
+  seller!: User;
+
   categories = signal<Category[]>([]);
   selectedFile: File | null = null;
   propertyRequest = signal<PropertyRequest>({
@@ -20,7 +24,7 @@ export class SellerComponent implements OnInit {
     categoryId: '',
     measures: '',
     price: 0,
-    sellerId: '86ca06ac-e41c-4726-9190-0e02353f0e93',
+    sellerId: '',
     status: PropertyStatus.AVAILABLE,
     type: PropertyType.DEPARTMENT
   });
@@ -50,7 +54,7 @@ export class SellerComponent implements OnInit {
     formData.append('type', this.propertyRequest().type)
     formData.append('status', this.propertyRequest().status)
     formData.append('categoryId', this.propertyRequest().categoryId)
-    formData.append('sellerId', this.propertyRequest().sellerId)
+    formData.append('sellerId', this.seller.id)
     if (this.selectedFile) {
       formData.append('image', this.selectedFile)
     }

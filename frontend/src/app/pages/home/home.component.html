@@ -1,2 +1,2 @@
-<app-buyer></app-buyer>
-<!-- <app-seller></app-seller> -->
+<app-buyer *ngIf="isBuyer()"></app-buyer>
+<app-seller *ngIf="isSeller() && user != null" [seller]="user"></app-seller>
