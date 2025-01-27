@@ -1,18 +1,19 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { SellerService } from './seller.service';
 import { Category, PropertyRequest, PropertyStatus, PropertyType } from '../home/models/Property';
-import { User } from '../home/models/User';
+import { Seller } from './models/Seller';
 
 @Component({
   selector: 'app-seller',
   templateUrl: './seller.component.html'
 })
 export class SellerComponent implements OnInit {
-  @Input()
-  seller!: User;
-
+  seller: Seller | null = null;
+  
   categories = signal<Category[]>([]);
+  
   selectedFile: File | null = null;
+  
   propertyRequest = signal<PropertyRequest>({
     title: '',
     description: '',
@@ -32,6 +33,7 @@ export class SellerComponent implements OnInit {
   constructor(private service: SellerService) {}
  
   ngOnInit(): void {
+    this.getSeller();
     this.getAllCategories();
   }
 
@@ -43,6 +45,8 @@ export class SellerComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.seller) return;
+
     const formData = new FormData();
     formData.append('title', this.propertyRequest().title)
     formData.append('description', this.propertyRequest().description)
@@ -73,15 +77,23 @@ export class SellerComponent implements OnInit {
           categoryId: '',
           measures: '',
           price: 0,
-          sellerId: '86ca06ac-e41c-4726-9190-0e02353f0e93',
+          sellerId: '',
           status: PropertyStatus.AVAILABLE,
           type: PropertyType.DEPARTMENT
         }))
-        console.log(response);
       },
       error: ({ error }) => console.error(error)
     })
     
+  }
+
+  private getSeller() {
+    this.service.getSeller().subscribe({
+      next: (response) => {
+        this.seller = response;
+      },
+      error: ({ error }) => console.error(error)
+    })
   }
 
   private getAllCategories() {

@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Category, Property } from '../home/models/Property';
+import { Category, Property, Seller } from '../home/models/Property';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SellerService {
- private url = `${environment.apiUrl}/properties`
+  private url = `${environment.apiUrl}/properties`
 
   constructor(private http: HttpClient) { }
 
@@ -17,5 +17,9 @@ export class SellerService {
 
   createProperty(request: any) {
     return this.http.post<Property>(this.url, request);
+  }
+
+  getSeller() {
+    return this.http.get<Seller | null>(`${environment.apiUrl}/sellers/me`)
   }
 }

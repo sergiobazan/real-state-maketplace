@@ -1,6 +1,6 @@
 <main class="p-6">
   <div class="flex justify-center max-w-[480px] mx-auto">
-    <form (submit)="onSubmit()" class="w-full p-3 rounded shadow border border-white">
+    <form (submit)="onSubmit()" class="w-full p-6 rounded shadow border border-white">
       <h1 class="text-xl font-semibold text-zinc-800 my-1 text-center">List your Property here!</h1>
       <div class="flex flex-col gap-1 mb-4">
         <label for="title">Title</label>
@@ -50,10 +50,12 @@
       </div>
       <div class="flex flex-col gap-1 mb-4">
         <label for="image">Image</label>
-        <input type="file" id="image" name="image" (change)="handleFile($event)" >
+        <input type="file" id="image" name="image" (change)="handleFile($event)">
       </div>
 
-      <button type="submit" class="py-1 px-4 rounded text-white bg-blue-500 font-semibold">List Property</button>
+      <button type="submit" class="flex m-auto py-1 px-6 rounded text-white bg-blue-500 border border-blue-500 font-semibold hover:bg-white hover:text-blue-500">
+        List Property
+      </button>
     </form>
   </div>
 </main>
