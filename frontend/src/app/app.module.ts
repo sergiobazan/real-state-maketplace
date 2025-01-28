@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component'
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { PropertyDetailsComponent } from './pages/property-details/property-details.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     BuyerComponent,
     SellerComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PropertyDetailsComponent
   ],
   imports: [
     BrowserModule,
