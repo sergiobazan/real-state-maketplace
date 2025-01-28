@@ -1,7 +1,7 @@
 <main class="p-6">
   <h1 class="text-xl font-semibold text-zinc-800 my-4 text-center">Find your new Property here!</h1>
   <div class="flex justify-center gap-4 flex-wrap">
-    <div *ngFor="let property of properties()" class="cursor-pointer border border-gray-300 max-w-[380px] rounded-md shadow-md overflow-hidden">
+    <div *ngFor="let property of properties()" class="border border-gray-300 max-w-[380px] rounded-md shadow-md overflow-hidden">
       <img [src]="property.imageUrl" [alt]="property.title" class="w-full h-[250px] object-cover">
       <div class="p-4 bg-neutral-50">
         <h2 class="font-semibold text-zinc-600 text-lg">{{ property.title }}</h2>
@@ -26,6 +26,8 @@
         <p class="text-md my-2"><span class="font-semibold text-zinc-600">Seller:</span> {{ property.seller.name }}</p>
         
         <p class="font-semibold text-zinc-600">Listing price: {{ property.price | currency }}</p>
+
+        <button type="button" (click)="goToDetails(property.id)" class="mt-2 w-full rounded py-1 px-3 bg-green-400 text-white font-semibold">See more</button>
       </div>
     </div>
   </div>

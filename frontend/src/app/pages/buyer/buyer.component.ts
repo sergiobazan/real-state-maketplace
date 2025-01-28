@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Property } from '../home/models/Property';
 import { BuyerService } from './buyer.service';
 import { Buyer } from './models/Buyer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buyer',
@@ -12,7 +13,7 @@ export class BuyerComponent {
 
   properties = signal<Property[]>([]);
 
-  constructor(private service: BuyerService) {}
+  constructor(private service: BuyerService, private router: Router) {}
   
   ngOnInit(): void {
     this.getBuyer();
@@ -35,5 +36,9 @@ export class BuyerComponent {
       },
       error: ({ error }) => console.error(error)
     })
+  }
+
+  goToDetails(propertyId: string) {
+    this.router.navigate(['/property', propertyId])
   }
 }
