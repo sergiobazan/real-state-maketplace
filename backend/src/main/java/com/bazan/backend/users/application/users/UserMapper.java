@@ -7,7 +7,7 @@ public class UserMapper {
     public static CreateUserResponse fromEntity(User user) {
         return new CreateUserResponse(
                 user.getId(),
-                user.getUsername(),
+                user.getName(),
                 user.getEmail()
         );
     }
