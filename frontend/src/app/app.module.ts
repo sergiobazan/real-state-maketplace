@@ -12,6 +12,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component'
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PropertyDetailsComponent } from './pages/property-details/property-details.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PropertyDetailsComponent } from './pages/property-details/property-deta
     SellerComponent,
     LoginComponent,
     RegisterComponent,
-    PropertyDetailsComponent
+    PropertyDetailsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
