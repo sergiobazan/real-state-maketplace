@@ -3,7 +3,8 @@
     <a routerLink="/">
       <span class="text-white w-full text-2xl font-semibold">Real State</span>
     </a>
-    <nav class="flex items-center w-full flex-1 justify-center gap-6">
+    <div class="flex-1" *ngIf="!user"></div>
+    <nav *ngIf="user" class="flex items-center w-full flex-1 justify-center gap-6">
       <a routerLink="/home">
         <span class="text-white text-lg">Home</span>
       </a>
@@ -11,11 +12,20 @@
         <span class="text-white text-lg">Settings</span>
       </a>
     </nav>
-    <button type="button" class="flex items-center gap-2">
+    <button type="button" (click)="logout()" *ngIf="user" class="flex items-center gap-2">
       <div class="text-xl bg-purple-100 text-gray-500 w-10 h-10 flex justify-center items-center rounded-full mx-auto">
         <i class="fa-solid fa-user"></i>
       </div>
-      <span class="text-white">{{ user?.name }}</span>
+      <span class="text-white">{{ user.name }}</span>
     </button>
+    <div *ngIf="!user" class="flex items-center gap-2">
+      <a routerLink="/login" class="rounded py-1 px-6 border text-white font-semibold border-indigo-500 bg-indigo-500">
+        Login
+      </a>
+      <a routerLink="/register" class="rounded py-1 px-4 border text-indigo-500 font-semibold border-indigo-500 bg-white">
+        Register
+      </a>
+    </div>
+    
   </div>
 </header>

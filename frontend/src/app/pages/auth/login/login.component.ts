@@ -19,6 +19,7 @@ export class LoginComponent {
     this.service.login(this.loginRequest).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
+        this.service.notifyLogin();
         this.router.navigate(['/']);
       },
       error: ({ error }) => console.error(error)
