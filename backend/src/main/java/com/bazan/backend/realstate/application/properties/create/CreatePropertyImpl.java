@@ -1,5 +1,6 @@
 package com.bazan.backend.realstate.application.properties.create;
 
+import com.bazan.backend.realstate.application.abstractions.contracts.PropertyCreatedEvent;
 import com.bazan.backend.realstate.application.properties.CategoryMapper;
 import com.bazan.backend.realstate.application.properties.PropertyMapper;
 import com.bazan.backend.realstate.domain.properties.Address;
@@ -14,6 +15,8 @@ import com.bazan.backend.realstate.infrastructure.repositories.PropertyRepositor
 import com.bazan.backend.realstate.infrastructure.repositories.SellerRepository;
 import com.bazan.backend.shared.domain.abstractions.Result;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +31,7 @@ public class CreatePropertyImpl implements CreateProperty {
     private final SellerRepository sellerRepository;
     private final CategoryRepository categoryRepository;
     private final ImageService imageService;
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
     @Override
@@ -69,6 +73,13 @@ public class CreatePropertyImpl implements CreateProperty {
         var propertySaved = propertyRepository.save(property);
 
         var response = PropertyMapper.fromEntity(propertySaved);
+        
+        publisher.publishEvent(new PropertyCreatedEvent(
+        		propertySaved.getId(), 
+        		propertySaved.getTitle(), 
+        		propertySaved.getPrice(), 
+        		propertySaved.getCategory().getName(), 
+        		propertySaved.getSeller().getId()));
 
         return Result.success(response);
     }
